@@ -17,7 +17,16 @@ services:
     envVars:
       - key: NODE_VERSION
         value: '24'
-    # No additional env vars required. After deploy, copy the URL of
-    # this service + /remoteEntry.js and set it as PUBLIC_REMOTE_URL on
-    # shell-poc2-rsbuild (then redeploy the shell so the new URL is
-    # baked into its bundle).
+      # Federation chunks must be loaded from this remote's URL, not
+      # from the host's. Without an absolute assetPrefix, the manifest
+      # contains relative paths like /static/js/.../Tool.xxx.js, and the
+      # host fetches them against ITS own origin. Setting this to the
+      # full deployed URL makes the manifest fully-qualified.
+      #
+      # IMPORTANT: this must match this service's actual deployed URL.
+      # Update if Render assigns a different hostname.
+      - key: PUBLIC_ASSET_PREFIX
+        value: https://third-party-poc2-rsbuild.onrender.com/
+    # After deploy, copy the URL of this service + /remoteEntry.js and
+    # set it as PUBLIC_REMOTE_URL on shell-poc2-rsbuild (then redeploy
+    # the shell so the new URL is baked into its bundle).
