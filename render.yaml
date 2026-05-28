@@ -1,0 +1,22 @@
+services:
+  - type: static_site
+    name: third-party-poc2-rsbuild
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    # Federation chunks must be loadable cross-origin by the host
+    # (shell-poc2-rsbuild). Without these headers the browser fetches
+    # remoteEntry.js with 200 but refuses to evaluate it.
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: '*'
+      - path: /*
+        name: Access-Control-Allow-Methods
+        value: 'GET, OPTIONS'
+    envVars:
+      - key: NODE_VERSION
+        value: '24'
+    # No additional env vars required. After deploy, copy the URL of
+    # this service + /remoteEntry.js and set it as PUBLIC_REMOTE_URL on
+    # shell-poc2-rsbuild (then redeploy the shell so the new URL is
+    # baked into its bundle).

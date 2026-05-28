@@ -1,0 +1,38 @@
+/* Native third-party brand. When the component is federated into the
+   shell, the shell's :root overrides (loaded earlier in the host DOM)
+   win the cascade — POC 1's overlay mechanism applies transparently. */
+
+:root {
+  --brand-blue-base: #0071bc;
+  --brand-blue-dark: #205493;
+  --brand-blue-dark-1: #112e51;
+  --text-primary: #1b1b1b;
+  --text-secondary: #5c5c5c;
+  --grayscale-white: #fff;
+  --ui-border: #adadad;
+  --ui-border-light: #e6e6e6;
+  --ui-background-light: #f1f1f1;
+  --button-background-color: var(--brand-blue-base);
+  --font-family-primary: 'Source Sans Pro', system-ui, sans-serif;
+  --font-family-monospace: Menlo, Consolas, monospace;
+  --font-weight-semibold: 600;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--grayscale-white);
+  color: var(--text-primary);
+  font-family: var(--font-family-primary);
+  margin: 0;
+}
+
+code {
+  background: var(--ui-background-light);
+  border-radius: 0.2rem;
+  font-family: var(--font-family-monospace);
+  font-size: 0.9em;
+  padding: 0.1rem 0.35rem;
+}
